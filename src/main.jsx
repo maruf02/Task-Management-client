@@ -11,6 +11,7 @@ import AuthProvider from "./Components/AuthProvider/AuthProvider.jsx";
 import AddTask from "./Components/DashBoard/AddTask/AddTask.jsx";
 import DashBoardHome from "./Components/DashBoard/DashBoardHome/DashBoardHome.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute.jsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -33,15 +34,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashBoard></DashBoard>,
+    element: (
+      <PrivateRoute>
+        <DashBoard></DashBoard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard/dashHome",
-        element: <DashBoardHome></DashBoardHome>,
+        element: (
+          <PrivateRoute>
+            <DashBoardHome></DashBoardHome>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/addtask",
-        element: <AddTask></AddTask>,
+        element: (
+          <PrivateRoute>
+            <AddTask></AddTask>
+          </PrivateRoute>
+        ),
       },
     ],
   },

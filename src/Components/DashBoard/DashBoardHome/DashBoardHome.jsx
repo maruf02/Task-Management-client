@@ -32,8 +32,6 @@ const DashBoardHome = () => {
                 <th>Category</th>
                 <th>Hours</th>
                 <th>Submitted Date</th>
-                <th>Action</th>
-                <th>Resubmit</th>
               </tr>
             </thead>
             <tbody>
