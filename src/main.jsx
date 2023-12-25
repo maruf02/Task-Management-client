@@ -75,7 +75,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/tasksheet/${params.id}`),
+          fetch(
+            `https://task-management-server-henna.vercel.app/tasksheet/${params.id}`
+          ),
       },
     ],
   },
