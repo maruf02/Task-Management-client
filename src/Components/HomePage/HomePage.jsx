@@ -1,9 +1,14 @@
 import React from "react";
+import BannerSection from "./BannerSection";
+import BenifiteSection from "./BenifiteSection";
+import ContactUsSection from "./ContactUsSection";
 
 const HomePage = () => {
   return (
     <div>
-      <h2>HomePage</h2>
+      <BannerSection></BannerSection>
+      <BenifiteSection></BenifiteSection>
+      <ContactUsSection></ContactUsSection>
     </div>
   );
 };

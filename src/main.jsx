@@ -12,6 +12,9 @@ import AddTask from "./Components/DashBoard/AddTask/AddTask.jsx";
 import DashBoardHome from "./Components/DashBoard/DashBoardHome/DashBoardHome.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute.jsx";
+import UpdateTask from "./Components/DashBoard/AddTask/UpdateTask.jsx";
+import BenifiteSection from "./Components/HomePage/BenifiteSection.jsx";
+import ContactUsSection from "./Components/HomePage/ContactUsSection.jsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -29,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/signUp",
         element: <SignUpPage></SignUpPage>,
+      },
+      {
+        path: "/benefit",
+        element: <BenifiteSection></BenifiteSection>,
+      },
+      {
+        path: "/contact",
+        element: <ContactUsSection></ContactUsSection>,
       },
     ],
   },
@@ -55,6 +66,16 @@ const router = createBrowserRouter([
             <AddTask></AddTask>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/dashboard/updateTask/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateTask></UpdateTask>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/tasksheet/${params.id}`),
       },
     ],
   },

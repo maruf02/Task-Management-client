@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleSignOut = () => {
-    logOut().then().catch();
+    logOut().then(navigate("/")).catch();
   };
   const userName = user?.displayName;
   // console.log(userName);
@@ -17,12 +18,12 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/about" className="activeNavLink ">
-          <button>About</button>
+        <NavLink to="/benefit" className="activeNavLink ">
+          <button>Benefits</button>
         </NavLink>
       </li>
       <li>
-        <NavLink to="/rooms" className="activeNavLink ">
+        <NavLink to="/contact" className="activeNavLink ">
           <button>Contact</button>
         </NavLink>
       </li>

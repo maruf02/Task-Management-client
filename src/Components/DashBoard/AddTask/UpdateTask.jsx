@@ -1,49 +1,37 @@
 import moment from "moment";
-import React, { useContext, useState } from "react";
-import ReactDatePicker from "react-datepicker";
+import React from "react";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
-import "react-datepicker/dist/react-datepicker.css";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../useAxiosPublic/useAxiosPublic";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
-const AddTask = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
+const UpdateTask = () => {
+  const task = useLoaderData();
+  const { _id, name, date, priority, desc } = task;
   const { register, handleSubmit, reset } = useForm();
-  // const [users, refetch] = useUserEmail();
-  const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const task = {
-      name: data.name,
-      email: user.email,
-      date: selectedDate ? selectedDate.toISOString() : null,
-      priority: data.category,
       desc: data.desc,
-      Status: "todo",
-      Read: "new",
     };
     // console.log(task);
 
-    axiosPublic.post("/tasksheet", task).then((res) => {
-      if (res.data.insertedId) {
+    axiosPublic.put(`/tasksheet/${_id}`, task).then((res) => {
+      //   console.log(res.data);
+      if (res.data.modifiedCount > 0) {
         reset();
-        setSelectedDate(null);
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${name} added to your Worksheet`,
+          title: `Update succesfully`,
           showConfirmButton: false,
           timer: 2500,
         });
-
-        // refetch();
       }
+      navigate("/dashboard/dashHome");
     });
-  };
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
   };
   return (
     <div>
@@ -65,8 +53,8 @@ const AddTask = () => {
                     <input
                       type="text"
                       placeholder="Task Name"
-                      {...register("name", { required: true })}
-                      required
+                      defaultValue={name}
+                      readOnly
                       className="input input-bordered  w-full input-accent text-white bg-transparent"
                     />
                   </div>
@@ -76,15 +64,12 @@ const AddTask = () => {
                         Deadline:
                       </span>
                     </label>
-                    <ReactDatePicker
-                      name="date"
-                      className="w-full text-2xl border rounded-lg text-white bg-transparent input-accent"
-                      placeholderText="Select a date"
-                      required={!selectedDate}
-                      selected={selectedDate}
-                      onChange={handleDateChange}
-                      dateFormat="MMMM d, yyyy"
-                      minDate={moment().toDate()}
+                    <input
+                      type="text"
+                      placeholder="Task Name"
+                      defaultValue={moment(date).format("DD MMM,YY")}
+                      readOnly
+                      className="input input-bordered  w-full input-accent text-white bg-transparent"
                     />
                   </div>
                   <div className="flex gap-6">
@@ -92,18 +77,13 @@ const AddTask = () => {
                       <label className="label">
                         <span className="label-text text-white">Priority*</span>
                       </label>
-                      <select
-                        defaultValue="default"
-                        {...register("category", { required: true })}
-                        className="select select-bordered w-full text-white bg-green-800 input-accent"
-                      >
-                        <option disabled value="default">
-                          Select a Task Priority
-                        </option>
-                        <option value="Low">Low</option>
-                        <option value="Moderate">Moderate</option>
-                        <option value="High">High</option>
-                      </select>
+                      <input
+                        type="text"
+                        placeholder="Task Name"
+                        defaultValue={priority}
+                        readOnly
+                        className="input input-bordered  w-full input-accent text-white bg-transparent"
+                      />
                     </div>
                   </div>
 
@@ -115,12 +95,15 @@ const AddTask = () => {
                     </label>
                     <textarea
                       {...register("desc")}
+                      defaultValue={desc}
                       className="textarea textarea-bordered h-24 text-white bg-transparent textarea-accent"
                       placeholder="Description"
                     ></textarea>
                   </div>
 
-                  <button className="btn btn-accent mt-5">Add Task</button>
+                  <button className="btn btn-accent mt-5">
+                    Update Description
+                  </button>
                 </form>
               </div>
               {/* jobb add form */}
@@ -133,4 +116,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default UpdateTask;

@@ -22,7 +22,7 @@ const SignInPage = () => {
         // console.log("object", email, password);
         // alert("Login successful!");
         Swal.fire("Login Successfully!");
-        navigate(location?.state ? location.state : "/");
+        navigate(location?.state ? location.state : "/dashboard/dashHome");
       })
       .catch((err) => {
         // console.error(err);
@@ -32,17 +32,33 @@ const SignInPage = () => {
       });
   };
 
+  // const handleSignInGoogle = () => {
+  //   signInGoogle()
+  //     .then((res) => {
+  //       // console.log(res.user);
+  //       Swal.fire("Login Successfully via Google!");
+  //       navigate(location?.state ? location.state : "/");
+  //     })
+  //     .catch((err) => {
+  //       // console.error(err);
+  //     });
+  // };
+
   const handleSignInGoogle = () => {
-    signInGoogle()
-      .then((res) => {
-        // console.log(res.user);
-        Swal.fire("Login Successfully via Google!");
+    signInGoogle().then(async (res) => {
+      const name = res.user.displayName;
+      const image = res.user.photoURL;
+      const email = res.user.email;
+
+      // Send user data to your backend
+      const userInfo = { name, image, email };
+      axiosPublic.post("/users", userInfo).then(() => {
+        Swal.fire("User Created Successfully via Google");
         navigate(location?.state ? location.state : "/");
-      })
-      .catch((err) => {
-        // console.error(err);
       });
+    });
   };
+
   return (
     <div className="py-20">
       <div className="hero ">
