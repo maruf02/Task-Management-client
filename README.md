@@ -1,8 +1,10 @@
-# React + Vite
+# Task Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Live Link: https://scic-project-ass.web.app/
 
-Currently, two official plugins are available:
+Here is the Important Features of this project:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- This is Mern Stack Base project with firebase Auth Validation.
+- In this project you can add/edit/delete/view task after login
+- you can login via google that helps you save and securable login system
+- More update will come soon, Be patient and see the More functionality.

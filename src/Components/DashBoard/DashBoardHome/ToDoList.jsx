@@ -65,6 +65,7 @@ const ToDoList = ({ onOngoingUpdate }) => {
     if (res.data.modifiedCount > 0) {
       const updatedTodos = todos.filter((todo) => todo._id !== todoID);
       setTodo(updatedTodos);
+      console.log("pongoing", pongoings);
       onOngoingUpdate([...pongoings, res.data]);
       Swal.fire({
         position: "top-end",
