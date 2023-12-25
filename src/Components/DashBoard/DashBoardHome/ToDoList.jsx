@@ -5,7 +5,7 @@ import moment from "moment";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
 
-const ToDoList = () => {
+const ToDoList = ({ onOngoingUpdate }) => {
   const [todos, setTodo] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
@@ -65,6 +65,7 @@ const ToDoList = () => {
     if (res.data.modifiedCount > 0) {
       const updatedTodos = todos.filter((todo) => todo._id !== todoID);
       setTodo(updatedTodos);
+      onOngoingUpdate([...pongoings, res.data]);
       Swal.fire({
         position: "top-end",
         icon: "success",

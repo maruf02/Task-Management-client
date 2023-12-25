@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ToDoList from "./ToDoList";
 import OngoingList from "./OngoingList";
 import FinishedList from "./FinishedList";
 import AOS from "aos";
 
 const DashBoardHome = () => {
+  const [pongoings, setPOngoing] = useState([]);
+  const handleOngoingUpdate = (updatedOngoings) => {
+    setPOngoing(updatedOngoings);
+  };
   // const [todos, setTodo] = useState([]);
   // const [ongoings, setOngoing] = useState([]);
   // const [finisheds, setFinished] = useState([]);
@@ -212,7 +216,7 @@ const DashBoardHome = () => {
               )}
             </div>
           </div> */}
-          <ToDoList></ToDoList>
+          <ToDoList onOngoingUpdate={handleOngoingUpdate}></ToDoList>
           {/* to-do list */}
           {/* ongoing list */}
           {/* <div className=" h-full rounded-lg">
@@ -261,7 +265,7 @@ const DashBoardHome = () => {
               )}
             </div>
           </div> */}
-          <OngoingList></OngoingList>
+          <OngoingList ongoings={pongoings}></OngoingList>
           {/* ongoing list */}
           {/* complete list */}
           {/* <div className=" h-full rounded-lg">

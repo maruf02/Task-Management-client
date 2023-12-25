@@ -4,8 +4,8 @@ import useAxiosPublic from "../../useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
 import moment from "moment";
 
-const OngoingList = () => {
-  const [ongoings, setOngoing] = useState([]);
+const OngoingList = ({ pongoings }) => {
+  const [ongoings, setOngoing] = useState(pongoings);
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
@@ -33,7 +33,6 @@ const OngoingList = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      refetch();
     }
   };
   const handledelete = async (todoID) => {
